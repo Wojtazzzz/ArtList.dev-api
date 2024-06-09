@@ -19,6 +19,12 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
-
+    _instanceof:
+#        App\Service\CQRS\CommandHandler:
+#            tags:
+#                - { name: messenger.message_handler, bus: command.bus }
+        App\Abstraction\QueryHandler:
+            tags:
+                - { name: messenger.message_handler, bus: query.bus }
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
