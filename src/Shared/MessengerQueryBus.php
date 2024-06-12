@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Abstraction;
+namespace App\Shared;
 
 use Symfony\Component\Messenger\HandleTrait;
 use Symfony\Component\Messenger\MessageBusInterface;

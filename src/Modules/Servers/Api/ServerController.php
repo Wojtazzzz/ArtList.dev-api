@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Modules\Servers\Api;
 
-use App\Abstraction\QueryBus;
-use App\Modules\Servers\Application\ServerPaginationQuery;
+use App\Modules\Servers\Application\Queries\ServerPaginationQuery;
+use App\Shared\QueryBus;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;

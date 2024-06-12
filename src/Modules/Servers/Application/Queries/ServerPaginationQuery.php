@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Modules\Servers\Application;
+namespace App\Modules\Servers\Application\Queries;
 
-use App\Abstraction\Query;
+use App\Shared\Query;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final class ServerPaginationQuery implements Query

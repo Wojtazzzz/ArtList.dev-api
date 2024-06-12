@@ -2,20 +2,18 @@
 
 declare(strict_types=1);
 
-namespace App\Modules\Servers\Application;
+namespace App\Modules\Servers\Application\Queries;
 
 use App\Modules\Servers\Domain\ServerRepository;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]
-final class ServerPaginationQueryHandler
+final readonly class ServerPaginationQueryHandler
 {
     public function __construct(
-        private readonly ServerRepository $repository
+        private ServerRepository $repository
     )
     {
-
-
     }
 
     public function __invoke(ServerPaginationQuery $query): array
