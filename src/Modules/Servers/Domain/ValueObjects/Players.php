@@ -2,7 +2,7 @@
 
 namespace App\Modules\Servers\Domain\ValueObjects;
 
-use App\Modules\Servers\Domain\InvalidPlayersException;
+use App\Modules\Servers\Domain\Exceptions\InvalidPlayersException;
 
 final readonly class Players
 {

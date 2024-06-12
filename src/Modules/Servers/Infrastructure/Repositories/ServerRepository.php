@@ -9,7 +9,7 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @extends ServiceEntityRepository<Server>
  */
-class ServerRepository extends ServiceEntityRepository implements \App\Modules\Servers\Domain\ServerRepository
+class ServerRepository extends ServiceEntityRepository implements \App\Modules\Servers\Domain\Repositories\ServerRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -48,4 +48,8 @@ class ServerRepository extends ServiceEntityRepository implements \App\Modules\S
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    public function create(\App\Modules\Servers\Domain\Entities\Server $server)
+    {
+        // TODO: Implement create() method.
+    }
 }

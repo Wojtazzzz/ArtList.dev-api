@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Modules\Servers\Application\Queries;
 
-use App\Modules\Servers\Domain\ServerRepository;
+use App\Modules\Servers\Domain\Repositories\ServerRepository;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]
