@@ -29,7 +29,7 @@ final class ServerController extends AbstractController
     ): JsonResponse
     {
         return $this->json([
-            'hello' => $this->queryBus->handle($query)
+            'servers' => $this->queryBus->handle($query)
         ]);
     }
 }
