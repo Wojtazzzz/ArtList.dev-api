@@ -6,7 +6,7 @@ namespace App\Modules\Servers\Domain\Exceptions;
 
 use App\Shared\Exceptions\DomainException;
 
-final readonly class InvalidPlayersException extends DomainException
+final class InvalidPlayersException extends DomainException
 {
     public function __construct()
     {
