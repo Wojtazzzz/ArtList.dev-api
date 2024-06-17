@@ -10,8 +10,8 @@ final readonly class Players
      * @throws InvalidPlayersException
      */
     public function __construct(
-        private int $currentPlayers,
-        private int $maxPlayers
+        public int $currentPlayers,
+        public int $maxPlayers
     )
     {
         if ($this->currentPlayers < 0 || $this->maxPlayers < 0) {

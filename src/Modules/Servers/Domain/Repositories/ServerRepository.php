@@ -10,5 +10,5 @@ interface ServerRepository
 {
     public function getPaginatedServers(int $page, int $limit);
 
-    public function create(Server $server);
+    public function create(Server $server): void;
 }

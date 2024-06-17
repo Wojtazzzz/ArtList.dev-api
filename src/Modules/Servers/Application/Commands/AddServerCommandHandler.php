@@ -38,12 +38,12 @@ final readonly class AddServerCommandHandler
      * @throws ServerExceptionInterface
      * @throws InvalidPlayersException
      */
-    public function __invoke(AddServerCommand $command): array
+    public function __invoke(AddServerCommand $command): void
     {
         $serverData = $this->client->getServerData($command->name);
 
         $server = $this->service->create($serverData);
 
-        return $this->repository->create($server);
+        $this->repository->create($server);
     }
 }

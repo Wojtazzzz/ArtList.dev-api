@@ -2,8 +2,10 @@
 
 namespace App\Modules\Servers\Infrastructure\Repositories;
 
+use App\Modules\Servers\Domain\Entities\Server as DomainServerEntity;
 use App\Modules\Servers\Infrastructure\Entities\Server;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -11,7 +13,7 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ServerRepository extends ServiceEntityRepository implements \App\Modules\Servers\Domain\Repositories\ServerRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, private readonly EntityManagerInterface $entityManager)
     {
         parent::__construct($registry, Server::class);
     }
@@ -47,9 +49,21 @@ class ServerRepository extends ServiceEntityRepository implements \App\Modules\S
     //            ->getQuery()
     //            ->getOneOrNullResult()
     //        ;
-    //    }
-    public function create(\App\Modules\Servers\Domain\Entities\Server $server)
+    //    }\
+
+    public function create(DomainServerEntity $server): void
     {
-        // TODO: Implement create() method.
+        $entity = new Server();
+        $entity->name = $server->name;
+        $entity->icon = $server->icon;
+        $entity->motdFirstLine = $server->motd->firstLine;
+        $entity->motdSecondLine = $server->motd->secondLine;
+        $entity->currentPlayers = $server->players->currentPlayers;
+        $entity->maxPlayers = $server->players->maxPlayers;
+        $entity->online = $server->online;
+        $entity->version = $server->version;
+
+        $this->entityManager->persist($entity);
+        $this->entityManager->flush();
     }
 }
