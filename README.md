@@ -1,3 +1,5 @@
 API for:
-https://artlist.dev/
-https://github.com/Wojtazzzz/ArtList.dev
+\
+Site: https://artlist.dev/
+\
+Repository: https://github.com/Wojtazzzz/ArtList.dev
