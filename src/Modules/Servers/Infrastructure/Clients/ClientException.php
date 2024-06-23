@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Modules\Servers\Infrastructure\Clients;
 
-class ClientException extends \Exception
+final class ClientException extends \Exception
 {
     public function __construct()
     {
