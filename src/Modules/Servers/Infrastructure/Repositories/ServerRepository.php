@@ -41,15 +41,15 @@ class ServerRepository extends ServiceEntityRepository implements \App\Modules\S
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Server
-    //    {
-    //        return $this->createQueryBuilder('s')
-    //            ->andWhere('s.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }\
+    public function existsByName(string $name): bool
+    {
+        return (bool)$this->createQueryBuilder('s')
+            ->andWhere('s.name = :name')
+            ->setParameter('name', $name)
+            ->getQuery()
+            ->setMaxResults(1)
+            ->getResult();
+    }
 
     public function create(DomainServerEntity $server): void
     {
