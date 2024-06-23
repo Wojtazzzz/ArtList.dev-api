@@ -18,12 +18,26 @@ class ServerRepository extends ServiceEntityRepository implements \App\Modules\S
         parent::__construct($registry, Server::class);
     }
 
-    public function getPaginatedServers(int $page, int $limit)
+    public function getPaginatedServers(int $page, int $limit, ?string $order, ?string $name)
     {
-        return $this->createQueryBuilder('s')
-            ->setMaxResults($limit)
-            ->getQuery()
-            ->getResult();
+        [$field, $direction] = match ($order) {
+            'name' => ['name', 'ASC'],
+            '-name' => ['name', 'DESC'],
+            'players' => ['currentPlayers', 'ASC'],
+            default => ['currentPlayers', 'DESC'],
+        };
+
+        $builder = $this->createQueryBuilder('s')
+            ->setFirstResult(max(0, $page * $limit - $limit))
+            ->setMaxResults(max(1, $limit))
+            ->orderBy("s.{$field}", $direction);
+
+        if ($name) {
+            $builder->andWhere("s.name LIKE :name")
+                ->setParameter("name", "%{$name}%");
+        }
+
+        return $builder->getQuery()->getResult();
     }
 
     public function existsByName(string $name): bool

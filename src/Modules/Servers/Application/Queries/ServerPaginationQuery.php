@@ -11,12 +11,17 @@ final class ServerPaginationQuery implements Query
 {
     public function __construct(
         #[Assert\NotBlank]
-        #[Assert\Type('integer')]
+        #[Assert\PositiveOrZero]
         public int $page,
 
         #[Assert\NotBlank]
-        #[Assert\Type('integer')]
+        #[Assert\PositiveOrZero]
         public int $limit,
+
+        public ?string $name,
+
+        #[Assert\Choice(['name', '-name', 'players', '-players'])]
+        public ?string $order,
     )
     {
     }

@@ -8,7 +8,7 @@ use App\Modules\Servers\Domain\Entities\Server;
 
 interface ServerRepository
 {
-    public function getPaginatedServers(int $page, int $limit);
+    public function getPaginatedServers(int $page, int $limit, ?string $order, ?string $name);
 
     public function create(Server $server): void;
 

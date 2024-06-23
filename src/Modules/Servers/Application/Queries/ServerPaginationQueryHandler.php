@@ -19,6 +19,6 @@ final readonly class ServerPaginationQueryHandler implements QueryHandler
 
     public function __invoke(ServerPaginationQuery $query): array
     {
-        return $this->repository->getPaginatedServers($query->page, $query->limit);
+        return $this->repository->getPaginatedServers($query->page, $query->limit, $query->order, $query->name);
     }
 }
