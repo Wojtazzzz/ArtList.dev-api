@@ -18,8 +18,8 @@ use Symfony\Component\Routing\Attribute\Route;
 final class ServerController extends AbstractController
 {
     public function __construct(
-        private QueryBus $queryBus,
-        private CommandBus $commandBus,
+        private readonly QueryBus $queryBus,
+        private readonly CommandBus $commandBus,
     )
     {
     }
