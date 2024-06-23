@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Modules\Servers\Infrastructure\Clients;
 
 use App\Modules\Servers\Domain\Clients\OfflineServerData;
