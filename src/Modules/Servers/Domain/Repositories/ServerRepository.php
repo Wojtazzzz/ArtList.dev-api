@@ -13,4 +13,8 @@ interface ServerRepository
     public function create(Server $server): void;
 
     public function existsByName(string $name): bool;
+
+    public function getAllToUpdate();
+
+    public function update(int $id, Server $server): void;
 }

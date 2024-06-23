@@ -51,4 +51,29 @@ class ServerRepository extends ServiceEntityRepository implements \App\Modules\S
         $this->entityManager->persist($entity);
         $this->entityManager->flush();
     }
+
+
+    public function getAllToUpdate()
+    {
+        return $this->createQueryBuilder('s')
+            ->select('s.id', 's.name')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function update(int $id, DomainServerEntity $server): void
+    {
+        $entity = $this->getEntityManager()->getRepository(Server::class)->find($id);
+
+        $entity->name = $server->name;
+        $entity->icon = $server->icon;
+        $entity->motdFirstLine = $server->motd->firstLine;
+        $entity->motdSecondLine = $server->motd->secondLine;
+        $entity->currentPlayers = $server->players->currentPlayers;
+        $entity->maxPlayers = $server->players->maxPlayers;
+        $entity->online = $server->online;
+        $entity->version = $server->version;
+
+        $this->entityManager->flush();
+    }
 }

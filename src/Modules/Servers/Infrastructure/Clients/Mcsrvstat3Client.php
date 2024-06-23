@@ -15,10 +15,10 @@ use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-final class Mcsrvstat3Client implements ServerDataClient
+final readonly class Mcsrvstat3Client implements ServerDataClient
 {
     public function __construct(
-        private readonly HttpClientInterface $client,
+        private HttpClientInterface $client,
     )
     {
     }

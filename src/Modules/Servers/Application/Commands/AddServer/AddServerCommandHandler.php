@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Modules\Servers\Application\Commands;
+namespace App\Modules\Servers\Application\Commands\AddServer;
 
 use App\Modules\Servers\Domain\Exceptions\CannotCreateOfflineServerException;
 use App\Modules\Servers\Domain\Exceptions\InvalidPlayersException;
+use App\Modules\Servers\Domain\Exceptions\ServerAlreadyExistsException;
 use App\Modules\Servers\Domain\Repositories\ServerRepository;
 use App\Modules\Servers\Domain\Services\ServerService;
 use App\Modules\Servers\Infrastructure\Clients\ClientException;
@@ -37,6 +38,7 @@ final readonly class AddServerCommandHandler
      * @throws ClientException
      * @throws ServerExceptionInterface
      * @throws InvalidPlayersException
+     * @throws ServerAlreadyExistsException
      */
     public function __invoke(AddServerCommand $command): void
     {

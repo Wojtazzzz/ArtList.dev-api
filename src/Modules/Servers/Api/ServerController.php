@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace App\Modules\Servers\Api;
 
-use App\Modules\Servers\Application\Commands\AddServerCommand;
+use App\Modules\Servers\Application\Commands\AddServer\AddServerCommand;
+use App\Modules\Servers\Application\Commands\UpdateServers\UpdateServersCommand;
 use App\Modules\Servers\Application\Queries\ServerPaginationQuery;
 use App\Shared\CommandBus;
 use App\Shared\QueryBus;
@@ -43,6 +44,19 @@ final class ServerController extends AbstractController
             validationGroups: ['strict', 'edit'],
             validationFailedStatusCode: Response::HTTP_UNPROCESSABLE_ENTITY
         )] AddServerCommand $command,
+    ): JsonResponse
+    {
+        $this->commandBus->handle($command);
+
+        return $this->json([]);
+    }
+
+    #[Route('/servers', name: 'servers.update', methods: ['PUT'])]
+    public function update(
+        #[MapRequestPayload(
+            validationGroups: ['strict', 'edit'],
+            validationFailedStatusCode: Response::HTTP_UNPROCESSABLE_ENTITY
+        )] UpdateServersCommand $command,
     ): JsonResponse
     {
         $this->commandBus->handle($command);

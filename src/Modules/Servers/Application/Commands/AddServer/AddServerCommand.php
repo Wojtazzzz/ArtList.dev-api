@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Modules\Servers\Application\Commands;
+namespace App\Modules\Servers\Application\Commands\AddServer;
 
 use App\Shared\Command;
 use Symfony\Component\Validator\Constraints as Assert;

@@ -37,14 +37,39 @@ final readonly class ServerService
         }
 
         return new Server(
-            null,
-            $data->name,
-            $data->ip,
-            $data->version,
-            new Players($data->currentPlayers, $data->maxPlayers),
-            true,
-            new Motd($data->motdFirstLine, $data->motdSecondLine),
-            $data->icon,
+            id: null,
+            name: $data->name,
+            online: true,
+            ip: $data->ip,
+            version: $data->version,
+            players: new Players($data->currentPlayers, $data->maxPlayers),
+            motd: new Motd($data->motdFirstLine, $data->motdSecondLine),
+            icon: $data->icon,
+        );
+    }
+
+    /**
+     * @throws InvalidPlayersException
+     */
+    public function update(int $id, ServerData $data): Server
+    {
+        if (!($data instanceof OnlineServerData)) {
+            return new Server(
+                id: $id,
+                name: $data->name,
+                online: false
+            );
+        }
+
+        return new Server(
+            id: $id,
+            name: $data->name,
+            online: true,
+            ip: $data->ip,
+            version: $data->version,
+            players: new Players($data->currentPlayers, $data->maxPlayers),
+            motd: new Motd($data->motdFirstLine, $data->motdSecondLine),
+            icon: $data->icon,
         );
     }
 }
