@@ -18,8 +18,9 @@ final readonly class Players
             throw new InvalidPlayersException();
         }
 
-        if ($this->currentPlayers > $this->maxPlayers) {
-            throw new InvalidPlayersException();
-        }
+//        Reason: Too common error :/
+//        if ($this->currentPlayers > $this->maxPlayers) {
+//            throw new InvalidPlayersException();
+//        }
     }
 }
