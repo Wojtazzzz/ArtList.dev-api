@@ -33,8 +33,10 @@ class ServerRepository extends ServiceEntityRepository implements \App\Modules\S
             ->orderBy("s.{$field}", $direction);
 
         if ($name) {
-            $builder->andWhere("s.name LIKE :name")
-                ->setParameter("name", "%{$name}%");
+            $lowerName = strtolower($name);
+
+            $builder->andWhere("LOWER(s.name) LIKE :name")
+                ->setParameter("name", "%{$lowerName}%");
         }
 
         return $builder->getQuery()->getResult();
