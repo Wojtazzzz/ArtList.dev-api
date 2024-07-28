@@ -14,7 +14,8 @@ use Doctrine\ORM\Mapping as ORM;
 final class Server
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
+    #[ORM\GeneratedValue(strategy: 'SEQUENCE')]
+    #[ORM\SequenceGenerator(sequenceName: 'id')]
     #[ORM\Column]
     private ?int $id = null;
 
