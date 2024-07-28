@@ -33,7 +33,7 @@ class ServerRepository extends ServiceEntityRepository implements \App\Modules\S
             ->orderBy("s.{$field}", $direction);
 
         if ($name) {
-            $lowerName = strtolower($name);
+            $lowerName = mb_strtolower($name);
 
             $builder->andWhere("LOWER(s.name) LIKE :name")
                 ->setParameter("name", "%{$lowerName}%");
@@ -45,8 +45,8 @@ class ServerRepository extends ServiceEntityRepository implements \App\Modules\S
     public function existsByName(string $name): bool
     {
         return (bool)$this->createQueryBuilder('s')
-            ->andWhere('s.name = :name')
-            ->setParameter('name', $name)
+            ->andWhere('LOWER(s.name) = :name')
+            ->setParameter('name', mb_strtolower($name))
             ->getQuery()
             ->setMaxResults(1)
             ->getResult();
