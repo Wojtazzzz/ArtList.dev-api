@@ -11,7 +11,7 @@ final readonly class Motd
 
     public function __construct(?string $firstLine, ?string $secondLine)
     {
-        $this->firstLine = $firstLine ? trim($firstLine) : null;
-        $this->secondLine = $secondLine ? trim($secondLine) : null;
+        $this->firstLine = $firstLine ? substr(trim($firstLine), 0, 255) : null;
+        $this->secondLine = $secondLine ? substr(trim($secondLine), 0, 255) : null;
     }
 }
