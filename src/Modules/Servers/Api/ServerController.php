@@ -11,6 +11,7 @@ use App\Shared\CommandBus;
 use App\Shared\QueryBus;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapQueryString;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
@@ -57,8 +58,13 @@ final class ServerController extends AbstractController
             validationGroups: ['strict', 'edit'],
             validationFailedStatusCode: Response::HTTP_UNPROCESSABLE_ENTITY
         )] UpdateServersCommand $command,
+        Request $request
     ): JsonResponse
     {
+        if ($request->headers->get('Authorization') !== 'Bearer ' . $this->getParameter('cron_secret')) {
+            return $this->json([], 401);
+        }
+        
         $this->commandBus->handle($command);
 
         return $this->json([]);
