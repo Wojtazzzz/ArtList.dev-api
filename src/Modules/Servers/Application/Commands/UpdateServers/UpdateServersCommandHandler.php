@@ -46,6 +46,10 @@ final readonly class UpdateServersCommandHandler
 
                 $entity = $this->service->update($server['id'], $data);
 
+                if (!$entity->online) {
+                    continue;
+                }
+
                 $this->repository->update($server['id'], $entity);
             } catch (ClientException $e) {
                 continue;
