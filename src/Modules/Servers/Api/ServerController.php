@@ -35,9 +35,7 @@ final class ServerController extends AbstractController
         )] ServerPaginationQuery $query,
     ): JsonResponse
     {
-        return $this->json([
-            'servers' => $this->queryBus->handle($query)
-        ]);
+        return $this->json((array)$this->queryBus->handle($query));
     }
 
     #[Route('/servers/count', name: 'servers.count', methods: ['GET'])]
