@@ -11,11 +11,11 @@ final class ServerPaginationQuery implements Query
 {
     public function __construct(
         #[Assert\NotBlank]
-        #[Assert\PositiveOrZero]
+        #[Assert\Positive]
         public int $page,
 
         #[Assert\NotBlank]
-        #[Assert\PositiveOrZero]
+        #[Assert\Positive]
         public int $limit,
 
         public ?string $name,
