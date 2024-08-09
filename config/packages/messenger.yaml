@@ -15,6 +15,7 @@ framework:
     routing:
       # Route your messages to the transports
       'App\Modules\Servers\Application\Queries\ServerPaginationQuery': sync
+      'App\Modules\Servers\Application\Queries\ServerCountQuery': sync
 
 # when@test:
 #    framework:

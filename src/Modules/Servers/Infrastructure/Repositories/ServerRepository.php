@@ -92,4 +92,9 @@ class ServerRepository extends ServiceEntityRepository implements \App\Modules\S
 
         $this->entityManager->flush();
     }
+
+    public function getCount(): int
+    {
+        return $this->getEntityManager()->getRepository(Server::class)->count();
+    }
 }

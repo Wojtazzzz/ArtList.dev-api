@@ -6,6 +6,7 @@ namespace App\Modules\Servers\Api;
 
 use App\Modules\Servers\Application\Commands\AddServer\AddServerCommand;
 use App\Modules\Servers\Application\Commands\UpdateServers\UpdateServersCommand;
+use App\Modules\Servers\Application\Queries\ServerCountQuery;
 use App\Modules\Servers\Application\Queries\ServerPaginationQuery;
 use App\Shared\CommandBus;
 use App\Shared\QueryBus;
@@ -39,6 +40,14 @@ final class ServerController extends AbstractController
         ]);
     }
 
+    #[Route('/servers/count', name: 'servers.count', methods: ['GET'])]
+    public function count(ServerCountQuery $query): JsonResponse
+    {
+        return $this->json([
+            'servers' => $this->queryBus->handle($query)
+        ]);
+    }
+
     #[Route('/servers', name: 'servers.store', methods: ['POST'])]
     public function store(
         #[MapRequestPayload(
@@ -64,7 +73,7 @@ final class ServerController extends AbstractController
         if ($request->headers->get('Authorization') !== 'Bearer ' . $this->getParameter('cron_secret')) {
             return $this->json([], 401);
         }
-        
+
         $this->commandBus->handle($command);
 
         return $this->json([]);

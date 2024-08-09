@@ -10,6 +10,8 @@ interface ServerRepository
 {
     public function getPaginatedServers(int $page, int $limit, ?string $order, ?string $name);
 
+    public function getCount(): int;
+
     public function create(Server $server): void;
 
     public function existsByName(string $name): bool;
