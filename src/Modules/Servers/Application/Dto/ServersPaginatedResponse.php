@@ -16,6 +16,6 @@ final readonly class ServersPaginatedResponse
     {
         $this->lastPage = max(1, (int)ceil($this->total / $limit));
         $this->prevPage = ($this->page > 1) ? $this->page - 1 : null;
-        $this->nextPage = ($this->page > $this->lastPage) ? $this->page + 1 : null;
+        $this->nextPage = ($this->page >= $this->lastPage) ? null : $this->page + 1;
     }
 }
