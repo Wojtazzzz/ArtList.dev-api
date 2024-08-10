@@ -14,7 +14,7 @@ final readonly class ServersPaginatedResponse
 
     public function __construct(public int $page, public int $total, public int $limit, public array $data)
     {
-        $this->lastPage = max(1, (int)($this->total / $limit));
+        $this->lastPage = max(1, (int)ceil($this->total / $limit));
         $this->prevPage = ($this->page > 1) ? $this->page - 1 : null;
         $this->nextPage = ($this->page > $this->lastPage) ? $this->page + 1 : null;
     }
