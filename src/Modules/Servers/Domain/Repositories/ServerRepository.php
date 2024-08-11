@@ -16,7 +16,9 @@ interface ServerRepository
 
     public function existsByName(string $name): bool;
 
-    public function getAllToUpdate();
+    public function getToUpdate();
 
     public function update(int $id, Server $server): void;
+
+    public function updateCheckedAt(int $id): void;
 }

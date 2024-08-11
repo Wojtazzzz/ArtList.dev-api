@@ -38,7 +38,7 @@ final readonly class UpdateServersCommandHandler
      */
     public function __invoke(UpdateServersCommand $command): void
     {
-        $servers = $this->repository->getAllToUpdate();
+        $servers = $this->repository->getToUpdate();
 
         foreach ($servers as $server) {
             try {
@@ -47,6 +47,7 @@ final readonly class UpdateServersCommandHandler
                 $entity = $this->service->update($server['id'], $data);
 
                 if (!$entity->online) {
+                    $this->repository->updateCheckedAt($server['id']);
                     continue;
                 }
 

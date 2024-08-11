@@ -69,10 +69,12 @@ class ServerRepository extends ServiceEntityRepository implements \App\Modules\S
     }
 
 
-    public function getAllToUpdate()
+    public function getToUpdate()
     {
         return $this->createQueryBuilder('s')
             ->select('s.id', 's.name')
+            ->orderBy('s.checkedAt', 'ASC')
+            ->setMaxResults(30)
             ->getQuery()
             ->getResult();
     }
@@ -96,5 +98,14 @@ class ServerRepository extends ServiceEntityRepository implements \App\Modules\S
     public function getCount(): int
     {
         return $this->getEntityManager()->getRepository(Server::class)->count();
+    }
+
+    public function updateCheckedAt(int $id): void
+    {
+        $entity = $this->getEntityManager()->getRepository(Server::class)->find($id);
+
+        $entity->checkedAt = new \DateTime();
+
+        $this->entityManager->flush();
     }
 }
