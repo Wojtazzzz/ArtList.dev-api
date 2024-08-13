@@ -74,7 +74,7 @@ class ServerRepository extends ServiceEntityRepository implements \App\Modules\S
         return $this->createQueryBuilder('s')
             ->select('s.id', 's.name')
             ->orderBy('s.checkedAt', 'ASC')
-            ->setMaxResults(30)
+            ->setMaxResults(500)
             ->getQuery()
             ->getResult();
     }
