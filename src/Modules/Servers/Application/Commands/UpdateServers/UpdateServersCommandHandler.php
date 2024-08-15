@@ -47,7 +47,6 @@ final readonly class UpdateServersCommandHandler
                 $entity = $this->service->update($server['id'], $data);
 
                 if (!$entity->online) {
-                    $this->repository->updateCheckedAt($server['id']);
                     continue;
                 }
 

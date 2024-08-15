@@ -52,9 +52,6 @@ final class Server
     #[ORM\Column(type: Types::DATETIME_MUTABLE, options: ['default' => 'CURRENT_TIMESTAMP'])]
     public DateTime $updatedAt;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, options: ['default' => 'CURRENT_TIMESTAMP'])]
-    public DateTime $checkedAt;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -71,12 +68,5 @@ final class Server
     public function setUpdatedAtValue(): void
     {
         $this->updatedAt = new DateTime();
-    }
-
-    #[ORM\PrePersist]
-    #[ORM\PreUpdate]
-    public function setCheckedAtValue(): void
-    {
-        $this->checkedAt = new DateTime();
     }
 }

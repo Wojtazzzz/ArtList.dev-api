@@ -19,6 +19,4 @@ interface ServerRepository
     public function getToUpdate();
 
     public function update(int $id, Server $server): void;
-
-    public function updateCheckedAt(int $id): void;
 }
