@@ -8,15 +8,17 @@ use App\Modules\Servers\Domain\Entities\Server;
 
 interface ServerRepository
 {
-    public function getPaginatedServers(int $page, int $limit, ?string $order, ?string $name);
+	public function getPaginatedServers(int $page, int $limit, ?string $order, ?string $name);
 
-    public function getCount(): int;
+	public function getCount(): int;
 
-    public function create(Server $server): void;
+	public function create(Server $server): void;
 
-    public function existsByName(string $name): bool;
+	public function existsByName(string $name): bool;
 
-    public function getToUpdate();
+	public function getToUpdate();
 
-    public function update(int $id, Server $server): void;
+	public function update(int $id, Server $server): void;
+
+	public function markAsOffline(int $id): void;
 }
