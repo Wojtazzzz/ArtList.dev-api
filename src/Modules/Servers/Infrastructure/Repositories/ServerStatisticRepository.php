@@ -15,7 +15,7 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @extends ServiceEntityRepository<ServerStatistic>
  */
-class ServerStatisticRepository extends ServiceEntityRepository
+class ServerStatisticRepository extends ServiceEntityRepository implements \App\Modules\Servers\Domain\Repositories\ServerStatisticRepository
 {
 	public function __construct(
 		ManagerRegistry $registry,
@@ -46,5 +46,17 @@ class ServerStatisticRepository extends ServiceEntityRepository
 
 		$this->entityManager->persist($entity);
 		$this->entityManager->flush();
+	}
+
+	public function getLastForServer(int $serverId): mixed
+	{
+		return $this->createQueryBuilder('s')
+			->select('s.id', 's.createdAt')
+			->where('s.server = :serverId')
+			->setParameter('serverId', $serverId)
+			->orderBy('s.createdAt', 'DESC')
+			->setMaxResults(1)
+			->getQuery()
+			->getOneOrNullResult();
 	}
 }

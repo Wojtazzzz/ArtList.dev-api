@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Modules\Servers\Application\Commands\UpdateServers;
 
+use App\Modules\Servers\Domain\Entities\ServerStatistics;
 use App\Modules\Servers\Domain\Exceptions\InvalidPlayersException;
 use App\Modules\Servers\Domain\Repositories\ServerRepository;
 use App\Modules\Servers\Domain\Services\ServerService;
@@ -49,14 +50,20 @@ final readonly class UpdateServersCommandHandler
 				$data = $this->client->getServerData($server['name']);
 
 				$entity = $this->service->update($server['id'], $data);
-				
+
 				if ($entity->online) {
 					$this->serverRepository->update($server['id'], $entity);
 				} else {
 					$this->serverRepository->markAsOffline($server['id']);
 				}
 
-				$this->statisticRepository->create($entity);
+				$serverStatistics = new ServerStatistics(
+					lastServerStatistic: $this->statisticRepository->getLastForServer($server['id']),
+				);
+
+				if (!$serverStatistics->hasStatFromCurrentHour()) {
+					$this->statisticRepository->create($entity);
+				}
 			} catch (ClientException $e) {
 				continue;
 			}
