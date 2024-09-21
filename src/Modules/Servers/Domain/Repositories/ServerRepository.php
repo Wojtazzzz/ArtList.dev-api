@@ -21,4 +21,6 @@ interface ServerRepository
 	public function update(int $id, Server $server): void;
 
 	public function markAsOffline(int $id): void;
+
+	public function getByName(string $name): \App\Modules\Servers\Infrastructure\Entities\Server|null;
 }

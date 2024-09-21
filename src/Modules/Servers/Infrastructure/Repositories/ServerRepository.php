@@ -120,4 +120,14 @@ class ServerRepository extends ServiceEntityRepository implements \App\Modules\S
 
 		$this->entityManager->flush();
 	}
+
+	public function getByName(string $name): Server|null
+	{
+		return $this->createQueryBuilder('s')
+			->andWhere("LOWER(s.name) LIKE :name")
+			->setParameter("name", mb_strtolower($name))
+			->setMaxResults(1)
+			->getQuery()
+			->getOneOrNullResult();
+	}
 }

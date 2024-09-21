@@ -8,6 +8,7 @@ use App\Modules\Servers\Application\Commands\AddServer\AddServerCommand;
 use App\Modules\Servers\Application\Commands\UpdateServers\UpdateServersCommand;
 use App\Modules\Servers\Application\Queries\ServerCountQuery;
 use App\Modules\Servers\Application\Queries\ServerPaginationQuery;
+use App\Modules\Servers\Application\Queries\ServerQuery;
 use App\Shared\CommandBus;
 use App\Shared\QueryBus;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -44,6 +45,16 @@ final class ServerController extends AbstractController
 		return $this->json([
 			'servers' => $this->queryBus->handle($query)
 		]);
+	}
+
+	#[Route(path: '/servers/{serverName}', name: 'servers.show', methods: ['GET'])]
+	public function show(string $serverName): JsonResponse
+	{
+		$query = new ServerQuery(
+			serverName: $serverName
+		);
+
+		return $this->json($this->queryBus->handle($query));
 	}
 
 	#[Route('/servers', name: 'servers.store', methods: ['POST'])]

@@ -25,7 +25,7 @@ final class ServerStatistic
 	#[ORM\Column(type: Types::BOOLEAN, options: ['default' => false])]
 	public ?bool $online = null;
 
-	#[ORM\ManyToOne(targetEntity: Server::class, inversedBy: 'server_statistic')]
+	#[ORM\ManyToOne(targetEntity: Server::class, fetch: 'EXTRA_LAZY')]
 	private Server $server;
 
 	#[ORM\Column(type: Types::DATETIME_IMMUTABLE, options: ['default' => 'CURRENT_TIMESTAMP'])]

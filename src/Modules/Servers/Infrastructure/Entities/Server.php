@@ -11,6 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\OrderBy;
 
 #[ORM\Entity(repositoryClass: ServerRepository::class)]
 #[ORM\Table(name: 'server')]
@@ -50,7 +51,8 @@ final class Server
 	#[ORM\Column(type: Types::TEXT, nullable: true)]
 	public ?string $icon = null;
 
-	#[ORM\OneToMany(targetEntity: ServerStatistic::class, mappedBy: 'server_statistic')]
+	#[ORM\OneToMany(targetEntity: ServerStatistic::class, mappedBy: 'server', fetch: 'EXTRA_LAZY')]
+	#[OrderBy(['createdAt' => 'ASC'])]
 	private Collection $serverStatistics;
 
 	#[ORM\Column(type: Types::DATETIME_IMMUTABLE, options: ['default' => 'CURRENT_TIMESTAMP'])]
