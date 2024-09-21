@@ -25,6 +25,11 @@ final readonly class ServerResponse
 
 	public function __construct(Server $server)
 	{
+		$statistics = $server->getServerStatistics();
+		$total = count($statistics);
+
+		$last12Statistics = $statistics->slice(max(0, $total - 12), 12);
+
 		$this->id = $server->getId();
 		$this->name = $server->name;
 		$this->motdFirstLine = $server->motdFirstLine;
@@ -36,7 +41,6 @@ final readonly class ServerResponse
 				'date' => $stat->createdAt,
 				'value' => $stat->players,
 			];
-		}, $server->getServerStatistics()
-			->slice(0, 12));
+		}, $last12Statistics);
 	}
 }
