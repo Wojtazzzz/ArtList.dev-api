@@ -20,60 +20,60 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class ServerController extends AbstractController
 {
-    public function __construct(
-        private readonly QueryBus $queryBus,
-        private readonly CommandBus $commandBus,
-    )
-    {
-    }
+	public function __construct(
+		private readonly QueryBus $queryBus,
+		private readonly CommandBus $commandBus,
+	)
+	{
+	}
 
-    #[Route('/servers', name: 'servers.index', methods: ['GET'])]
-    public function index(
-        #[MapQueryString(
-            validationGroups: ['strict', 'edit'],
-            validationFailedStatusCode: Response::HTTP_UNPROCESSABLE_ENTITY
-        )] ServerPaginationQuery $query,
-    ): JsonResponse
-    {
-        return $this->json((array)$this->queryBus->handle($query));
-    }
+	#[Route(path: '/servers', name: 'servers.index', methods: ['GET'])]
+	public function index(
+		#[MapQueryString(
+			validationGroups: ['strict', 'edit'],
+			validationFailedStatusCode: Response::HTTP_UNPROCESSABLE_ENTITY
+		)] ServerPaginationQuery $query,
+	): JsonResponse
+	{
+		return $this->json($this->queryBus->handle($query));
+	}
 
-    #[Route('/servers/count', name: 'servers.count', methods: ['GET'])]
-    public function count(ServerCountQuery $query): JsonResponse
-    {
-        return $this->json([
-            'servers' => $this->queryBus->handle($query)
-        ]);
-    }
+	#[Route(path: '/servers/count', name: 'servers.count', methods: ['GET'])]
+	public function count(ServerCountQuery $query): JsonResponse
+	{
+		return $this->json([
+			'servers' => $this->queryBus->handle($query)
+		]);
+	}
 
-    #[Route('/servers', name: 'servers.store', methods: ['POST'])]
-    public function store(
-        #[MapRequestPayload(
-            validationGroups: ['strict', 'edit'],
-            validationFailedStatusCode: Response::HTTP_UNPROCESSABLE_ENTITY
-        )] AddServerCommand $command,
-    ): JsonResponse
-    {
-        $this->commandBus->handle($command);
+	#[Route('/servers', name: 'servers.store', methods: ['POST'])]
+	public function store(
+		#[MapRequestPayload(
+			validationGroups: ['strict', 'edit'],
+			validationFailedStatusCode: Response::HTTP_UNPROCESSABLE_ENTITY
+		)] AddServerCommand $command,
+	): JsonResponse
+	{
+		$this->commandBus->handle($command);
 
-        return $this->json([]);
-    }
+		return $this->json([]);
+	}
 
-    #[Route('/servers', name: 'servers.update', methods: ['PUT'])]
-    public function update(
-        #[MapRequestPayload(
-            validationGroups: ['strict', 'edit'],
-            validationFailedStatusCode: Response::HTTP_UNPROCESSABLE_ENTITY
-        )] UpdateServersCommand $command,
-        Request $request
-    ): JsonResponse
-    {
-        if ($request->headers->get('Authorization') !== 'Bearer ' . $this->getParameter('cron_secret')) {
-            return $this->json([], 401);
-        }
+	#[Route(path: '/servers', name: 'servers.update', methods: ['PUT'])]
+	public function update(
+		#[MapRequestPayload(
+			validationGroups: ['strict', 'edit'],
+			validationFailedStatusCode: Response::HTTP_UNPROCESSABLE_ENTITY
+		)] UpdateServersCommand $command,
+		Request $request
+	): JsonResponse
+	{
+		if ($request->headers->get('Authorization') !== 'Bearer ' . $this->getParameter('cron_secret')) {
+			return $this->json([], 401);
+		}
 
-        $this->commandBus->handle($command);
+		$this->commandBus->handle($command);
 
-        return $this->json([]);
-    }
+		return $this->json([]);
+	}
 }

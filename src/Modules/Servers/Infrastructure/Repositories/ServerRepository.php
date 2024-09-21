@@ -20,7 +20,7 @@ class ServerRepository extends ServiceEntityRepository implements \App\Modules\S
 		parent::__construct($registry, Server::class);
 	}
 
-	public function getPaginatedServers(int $page, int $limit, ?string $order, ?string $name)
+	public function getPaginatedServers(int $page, int $limit, ?string $order, ?string $name): array
 	{
 		[$field, $direction] = match ($order) {
 			'name' => ['name', 'ASC'],
@@ -30,6 +30,17 @@ class ServerRepository extends ServiceEntityRepository implements \App\Modules\S
 		};
 
 		$builder = $this->createQueryBuilder('s')
+			->select(
+				's.id',
+				's.name',
+				's.online',
+				's.icon',
+				's.version',
+				's.currentPlayers',
+				's.maxPlayers',
+				's.motdFirstLine',
+				's.motdSecondLine',
+			)
 			->setFirstResult(max(0, $page * $limit - $limit))
 			->setMaxResults(max(1, $limit))
 			->orderBy("s.{$field}", $direction);

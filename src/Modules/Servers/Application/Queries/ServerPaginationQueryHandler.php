@@ -12,19 +12,19 @@ use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 #[AsMessageHandler]
 final readonly class ServerPaginationQueryHandler implements QueryHandler
 {
-    public function __construct(
-        private ServerRepository $repository
-    )
-    {
-    }
+	public function __construct(
+		private ServerRepository $repository
+	)
+	{
+	}
 
-    public function __invoke(ServerPaginationQuery $query): ServersPaginatedResponse
-    {
-        return new ServersPaginatedResponse(
-            page: $query->page,
-            total: $this->repository->getCount(),
-            limit: $query->limit,
-            data: $this->repository->getPaginatedServers($query->page, $query->limit, $query->order, $query->name)
-        );
-    }
+	public function __invoke(ServerPaginationQuery $query): ServersPaginatedResponse
+	{
+		return new ServersPaginatedResponse(
+			page: $query->page,
+			total: $this->repository->getCount(),
+			limit: $query->limit,
+			data: $this->repository->getPaginatedServers($query->page, $query->limit, $query->order, $query->name)
+		);
+	}
 }
