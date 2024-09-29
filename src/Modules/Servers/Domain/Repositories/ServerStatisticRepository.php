@@ -11,4 +11,6 @@ interface ServerStatisticRepository
 	public function create(DomainServerEntity $data): void;
 
 	public function getLastForServer(int $serverId): mixed;
+
+	public function deleteOlderThanMonth(): void;
 }

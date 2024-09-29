@@ -59,4 +59,14 @@ class ServerStatisticRepository extends ServiceEntityRepository implements \App\
 			->getQuery()
 			->getOneOrNullResult();
 	}
+
+	public function deleteOlderThanMonth(): void
+	{
+		$this->createQueryBuilder('s')
+			->where('s.createdAt < :date')
+			->setParameter('date', (new \DateTime())->modify('-1 month'))
+			->delete()
+			->getQuery()
+			->execute();
+	}
 }
