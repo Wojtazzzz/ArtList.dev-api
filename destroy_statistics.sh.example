@@ -1,0 +1,6 @@
+# this file is executed for deleting stale server statistics by cron job
+# on production server should be with name "destroy_statistics.sh" and with filled CRON_SECRET
+
+curl --location --request DELETE 'https://artlistapi.bieda.it/server_statistics' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer CRON_SECRET'
