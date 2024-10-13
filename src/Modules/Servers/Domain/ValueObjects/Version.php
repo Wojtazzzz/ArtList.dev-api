@@ -9,9 +9,11 @@ final readonly class Version
 	public function __construct(?string $version)
 	{
 		if (!$version) {
-			$this->version = '';
+			$this->version = '-';
 		} else {
-			$this->version = trim((string)preg_replace('/[^0-9x\s.,\-\/]/', '', $version));
+			$parsedVersion = trim((string)preg_replace('/[^0-9x\s.,\-\/]/', '', $version));
+
+			$this->version = $parsedVersion ?: '-';
 		}
 	}
 
