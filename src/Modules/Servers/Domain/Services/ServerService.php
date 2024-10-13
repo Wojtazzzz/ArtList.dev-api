@@ -13,6 +13,7 @@ use App\Modules\Servers\Domain\Exceptions\ServerAlreadyExistsException;
 use App\Modules\Servers\Domain\Repositories\ServerRepository;
 use App\Modules\Servers\Domain\ValueObjects\Motd;
 use App\Modules\Servers\Domain\ValueObjects\Players;
+use App\Modules\Servers\Domain\ValueObjects\Version;
 
 final readonly class ServerService
 {
@@ -41,7 +42,7 @@ final readonly class ServerService
 			name: $data->name,
 			online: true,
 			ip: $data->ip,
-			version: $data->version,
+			version: new Version($data->version),
 			players: new Players($data->currentPlayers, $data->maxPlayers),
 			motd: new Motd($data->motdFirstLine, $data->motdSecondLine),
 			icon: $data->icon,
@@ -66,7 +67,7 @@ final readonly class ServerService
 			name: $data->name,
 			online: true,
 			ip: $data->ip,
-			version: $data->version,
+			version: new Version($data->version),
 			players: new Players($data->currentPlayers, $data->maxPlayers),
 			motd: new Motd($data->motdFirstLine, $data->motdSecondLine),
 			icon: $data->icon,

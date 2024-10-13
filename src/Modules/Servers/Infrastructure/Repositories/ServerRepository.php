@@ -75,7 +75,7 @@ class ServerRepository extends ServiceEntityRepository implements \App\Modules\S
 		$entity->currentPlayers = $server->players->currentPlayers;
 		$entity->maxPlayers = $server->players->maxPlayers;
 		$entity->online = $server->online;
-		$entity->version = $server->version;
+		$entity->version = $server->version ? (string)$server->version : null;
 
 		$this->entityManager->persist($entity);
 		$this->entityManager->flush();
@@ -101,7 +101,7 @@ class ServerRepository extends ServiceEntityRepository implements \App\Modules\S
 		$entity->currentPlayers = $server->players->currentPlayers;
 		$entity->maxPlayers = $server->players->maxPlayers;
 		$entity->online = $server->online;
-		$entity->version = $server->version;
+		$entity->version = $server->version ? (string)$server->version : null;
 
 		$this->entityManager->flush();
 	}
