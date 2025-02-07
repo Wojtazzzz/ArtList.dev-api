@@ -1,7 +1,4 @@
-version: '3'
-
 services:
-  ###> doctrine/doctrine-bundle ###
   postgres:
     image: postgres
     container_name: postgres
