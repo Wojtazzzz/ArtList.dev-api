@@ -11,7 +11,7 @@ final readonly class Version
 		if (!$version) {
 			$this->version = '-';
 		} else {
-			$parsedVersion = trim((string)preg_replace('/[^0-9x\s.,\-\/]/', '', $version));
+			$parsedVersion = trim((string)preg_replace('~[^0-9x\\s.,\\-/]~', '', $version));
 
 			$this->version = $parsedVersion ?: '-';
 		}
