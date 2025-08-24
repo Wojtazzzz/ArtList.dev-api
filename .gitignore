@@ -16,3 +16,4 @@ phpstan.neon
 
 update_servers.sh
 destroy_statistics.sh
+/.idea/
