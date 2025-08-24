@@ -96,6 +96,7 @@ class ServerRepository extends ServiceEntityRepository implements \App\Modules\S
 
 		$entity->name = $server->name;
 		$entity->icon = $server->icon;
+		$entity->iconUrl = $server->iconUrl;
 		$entity->motdFirstLine = $server->motd->firstLine;
 		$entity->motdSecondLine = $server->motd->secondLine;
 		$entity->currentPlayers = $server->players->currentPlayers;

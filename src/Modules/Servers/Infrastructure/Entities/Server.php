@@ -51,6 +51,9 @@ final class Server
 	#[ORM\Column(type: Types::TEXT, nullable: true)]
 	public ?string $icon = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    public ?string $iconUrl = null;
+
 	#[ORM\OneToMany(targetEntity: ServerStatistic::class, mappedBy: 'server', fetch: 'EXTRA_LAZY')]
 	#[OrderBy(['createdAt' => 'ASC'])]
 	private Collection $serverStatistics;

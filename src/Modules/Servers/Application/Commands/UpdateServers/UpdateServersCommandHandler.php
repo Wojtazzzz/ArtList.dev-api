@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Modules\Servers\Application\Commands\UpdateServers;
 
+use App\Modules\Servers\Application\Services\ServerStorage;
 use App\Modules\Servers\Domain\Entities\ServerStatistics;
 use App\Modules\Servers\Domain\Exceptions\InvalidPlayersException;
 use App\Modules\Servers\Domain\Repositories\ServerRepository;
@@ -23,10 +24,11 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 final readonly class UpdateServersCommandHandler
 {
 	public function __construct(
-		private ServerRepository $serverRepository,
+		private ServerRepository          $serverRepository,
 		private ServerStatisticRepository $statisticRepository,
-		private ServerService $service,
-		private Mcsrvstat3Client $client,
+		private ServerService             $service,
+		private Mcsrvstat3Client          $client,
+        private ServerStorage             $mediaStorage,
 	)
 	{
 	}
@@ -64,6 +66,26 @@ final readonly class UpdateServersCommandHandler
 				if (!$serverStatistics->hasStatFromCurrentHour()) {
 					$this->statisticRepository->create($entity);
 				}
+
+                $serverModel = $this->serverRepository->getByName($server['name']);
+
+                if ($serverModel->iconUrl) {
+                    continue;
+                }
+
+                if ($entity->icon) {
+                    $filename = $this->mediaStorage->uploadBase64(
+                        filename: "server_{$serverModel->getId()}.png",
+                        base64: $entity->icon,
+                    );
+
+                    $entity->iconUrl = $filename;
+
+                    $this->serverRepository->update(
+                        id: $serverModel->getId(),
+                        server: $entity,
+                    );
+                }
 			} catch (ClientException $e) {
 				continue;
 			}

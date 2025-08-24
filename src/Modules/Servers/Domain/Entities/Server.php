@@ -8,7 +8,7 @@ use App\Modules\Servers\Domain\ValueObjects\Motd;
 use App\Modules\Servers\Domain\ValueObjects\Players;
 use App\Modules\Servers\Domain\ValueObjects\Version;
 
-final readonly class Server
+final class Server
 {
 	public function __construct(
 		public ?int $id,
@@ -19,6 +19,7 @@ final readonly class Server
 		public ?Players $players = null,
 		public ?Motd $motd = null,
 		public ?string $icon = null,
+		public ?string $iconUrl = null,
 		public ?string $createdAt = null,
 		public ?string $updatedAt = null,
 	)
