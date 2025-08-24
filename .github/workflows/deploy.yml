@@ -23,4 +23,5 @@ jobs:
           ssh -p ${{ secrets.SERVER_PORT }} -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}     << 'EOF'
             cd /var/www/artlist-api || exit
             git pull origin main
+            composer install
           EOF
