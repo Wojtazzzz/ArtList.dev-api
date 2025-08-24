@@ -20,7 +20,7 @@ final class Version20250824144151 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE SEQUENCE id INCREMENT BY 1 MINVALUE 1 START 1');
+        $this->addSql('CREATE SEQUENCE IF NOT EXISTS id INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('ALTER TABLE server ADD icon_url VARCHAR(255) DEFAULT NULL');
     }
 
