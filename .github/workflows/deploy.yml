@@ -24,4 +24,5 @@ jobs:
             cd /var/www/artlist-api || exit
             git pull origin main
             composer install
+            ./bin/console doctrine:migrations:migrate --no-interaction
           EOF
