@@ -30,6 +30,7 @@ final readonly class ServersPaginatedResponse
 				'name' => $server['name'],
 				'online' => $server['online'],
 				'icon' => $server['icon'],
+				'iconUrl' => $server['iconUrl'],
 				'version' => $server['version'],
 				'currentPlayers' => $server['currentPlayers'],
 				'maxPlayers' => $server['maxPlayers'],
