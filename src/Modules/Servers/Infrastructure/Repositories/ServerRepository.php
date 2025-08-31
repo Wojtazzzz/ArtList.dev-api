@@ -44,7 +44,7 @@ class ServerRepository extends ServiceEntityRepository implements \App\Modules\S
 			->setFirstResult(max(0, $page * $limit - $limit))
 			->setMaxResults(max(1, $limit))
 			->orderBy("s.$field", $direction)
-			->orderBy("s.online", 'DESC');
+			->addOrderBy("s.online", 'DESC');
 
 		if ($name) {
 			$lowerName = mb_strtolower($name);
