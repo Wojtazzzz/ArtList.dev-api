@@ -35,7 +35,7 @@ class ServerRepository extends ServiceEntityRepository implements \App\Modules\S
 				's.name',
 				's.online',
 				's.icon',
-				's.icon_url',
+				's.iconUrl',
 				's.version',
 				's.currentPlayers',
 				's.maxPlayers',
