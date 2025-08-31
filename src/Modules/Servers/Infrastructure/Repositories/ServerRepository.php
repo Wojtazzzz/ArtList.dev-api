@@ -43,13 +43,14 @@ class ServerRepository extends ServiceEntityRepository implements \App\Modules\S
 			)
 			->setFirstResult(max(0, $page * $limit - $limit))
 			->setMaxResults(max(1, $limit))
-			->orderBy("s.{$field}", $direction);
+			->orderBy("s.$field", $direction)
+			->orderBy("s.online", 'DESC');
 
 		if ($name) {
 			$lowerName = mb_strtolower($name);
 
 			$builder->andWhere("LOWER(s.name) LIKE :name")
-				->setParameter("name", "%{$lowerName}%");
+				->setParameter("name", "%$lowerName%");
 		}
 
 		return $builder->getQuery()->getResult();
