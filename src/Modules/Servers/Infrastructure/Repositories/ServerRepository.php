@@ -7,7 +7,9 @@ namespace App\Modules\Servers\Infrastructure\Repositories;
 use App\Modules\Servers\Domain\Entities\Server as DomainServerEntity;
 use App\Modules\Servers\Infrastructure\Entities\Server;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Exception;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -132,5 +134,19 @@ class ServerRepository extends ServiceEntityRepository implements \App\Modules\S
 			->setMaxResults(1)
 			->getQuery()
 			->getOneOrNullResult();
+	}
+
+    /**
+     * @throws Exception
+     */
+    public function getRandomActiveServer(): Server|null
+	{
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = "SELECT id FROM server WHERE online = true ORDER BY RANDOM() LIMIT 1";
+
+        $row = $conn->fetchAssociative($sql);
+
+        return $row ? $this->find($row['id']) : null;
 	}
 }

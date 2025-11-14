@@ -36,11 +36,9 @@ final readonly class ServerResponse
 		$this->motdSecondLine = $server->motdSecondLine;
 		$this->online = $server->online;
 		$this->version = $server->version;
-		$this->statistics = array_map(function (ServerStatistic $stat): array {
-			return [
-				'date' => $stat->createdAt,
-				'value' => $stat->players,
-			];
-		}, $last12Statistics);
+		$this->statistics = array_map(static fn (ServerStatistic $stat): array => [
+            'date' => $stat->createdAt,
+            'value' => $stat->players,
+        ], $last12Statistics);
 	}
 }

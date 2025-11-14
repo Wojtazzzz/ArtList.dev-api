@@ -23,4 +23,6 @@ interface ServerRepository
 	public function markAsOffline(int $id): void;
 
 	public function getByName(string $name): \App\Modules\Servers\Infrastructure\Entities\Server|null;
+
+	public function getRandomActiveServer(): \App\Modules\Servers\Infrastructure\Entities\Server|null;
 }

@@ -24,19 +24,17 @@ final readonly class ServersPaginatedResponse
 		$this->lastPage = max(1, (int)ceil($this->total / $limit));
 		$this->prevPage = ($this->page > 1) ? $this->page - 1 : null;
 		$this->nextPage = ($this->page >= $this->lastPage) ? null : $this->page + 1;
-		$this->data = array_map(function (array $server): array {
-			return [
-				'id' => $server['id'],
-				'name' => $server['name'],
-				'online' => $server['online'],
-				'icon' => $server['icon'],
-				'iconUrl' => $server['iconUrl'],
-				'version' => $server['version'],
-				'currentPlayers' => $server['currentPlayers'],
-				'maxPlayers' => $server['maxPlayers'],
-				'motdFirstLine' => $server['motdFirstLine'],
-				'motdSecondLine' => $server['motdSecondLine'],
-			];
-		}, $data);
+		$this->data = array_map(static fn (array $server): array => [
+            'id' => $server['id'],
+            'name' => $server['name'],
+            'online' => $server['online'],
+            'icon' => $server['icon'],
+            'iconUrl' => $server['iconUrl'],
+            'version' => $server['version'],
+            'currentPlayers' => $server['currentPlayers'],
+            'maxPlayers' => $server['maxPlayers'],
+            'motdFirstLine' => $server['motdFirstLine'],
+            'motdSecondLine' => $server['motdSecondLine'],
+        ], $data);
 	}
 }

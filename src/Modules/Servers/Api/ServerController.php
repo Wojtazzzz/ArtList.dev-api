@@ -6,6 +6,7 @@ namespace App\Modules\Servers\Api;
 
 use App\Modules\Servers\Application\Commands\AddServer\AddServerCommand;
 use App\Modules\Servers\Application\Commands\UpdateServers\UpdateServersCommand;
+use App\Modules\Servers\Application\Queries\RandomActiveServerQuery;
 use App\Modules\Servers\Application\Queries\ServerCountQuery;
 use App\Modules\Servers\Application\Queries\ServerPaginationQuery;
 use App\Modules\Servers\Application\Queries\ServerQuery;
@@ -45,6 +46,14 @@ final class ServerController extends AbstractController
 		return $this->json([
 			'servers' => $this->queryBus->handle($query)
 		]);
+	}
+
+	#[Route(path: '/servers/random', name: 'servers.random', methods: ['GET'])]
+	public function random(RandomActiveServerQuery $query): JsonResponse
+	{
+		return $this->json(
+            $this->queryBus->handle($query)
+        );
 	}
 
 	#[Route(path: '/servers/{serverName}', name: 'servers.show', methods: ['GET'])]
